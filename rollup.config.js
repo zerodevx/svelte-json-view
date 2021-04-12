@@ -46,9 +46,9 @@ export default {
       emitCss: false
     }),
     resolve({
-			browser: true,
-			dedupe: ['svelte']
-		}),
+      browser: true,
+      dedupe: ['svelte']
+    }),
     commonjs(),
     !production && serve(),
     !production && livereload('docs'),
