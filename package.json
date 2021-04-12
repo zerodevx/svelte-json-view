@@ -1,0 +1,38 @@
+{
+  "name": "svelte-component",
+  "version": "1.0.0",
+  "svelte": "src/index.js",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "sirv docs --no-clear",
+    "dev": "rollup -c -w",
+    "lint": "eslint .",
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "eslint": "^7.24.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.1.0",
+    "eslint-plugin-svelte3": "^3.1.2",
+    "rollup": "^2.45.1",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "sirv-cli": "^1.0.11",
+    "svelte": "^3.37.0"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "svelte"
+  ]
+}
