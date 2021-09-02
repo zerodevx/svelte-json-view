@@ -1,7 +1,7 @@
 {
   "name": "@zerodevx/svelte-json-view",
+  "version": "0.1.2",
   "description": "View JSON data prettily",
-  "version": "0.1.1",
   "author": "Jason Lee <jason@zerodevx.com>",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
@@ -14,21 +14,21 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^19.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "eslint": "^7.30.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-svelte3": "^3.2.0",
-    "rollup": "^2.52.7",
+    "rollup": "^2.56.3",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-terser": "^7.0.2",
-    "sirv-cli": "^1.0.12",
-    "svelte": "^3.38.3"
+    "sirv-cli": "^1.0.14",
+    "svelte": "^3.42.4"
   },
   "files": [
     "src",
