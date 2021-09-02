@@ -47,15 +47,16 @@ ul {
   padding: 0;
   padding-left: var(--nodePaddingLeft,1rem);
   border-left: var(--nodeBorderLeft,1px dotted #9CA3AF);
-  color: var(--nodeColor,#374151)
+  color: var(--nodeColor,#374151);
 }
 .hidden { display: none; }
 .bracket { cursor: pointer; }
 .bracket:hover { background: var(--bracketHoverBackground,#D1D5DB); }
-.val { color: var(--leafDefaultColor,#9CA3AF) }
-.val.string { color: var(--leafStringColor, #059669); }
-.val.number { color: var(--leafNumberColor, #D97706); }
-.val.boolean { color: var(--leafBooleanColor, #2563EB); }
+.comma { color: var(--nodeColor,#374151); }
+.val { color: var(--leafDefaultColor,#9CA3AF); }
+.val.string { color: var(--leafStringColor,#059669); }
+.val.number { color: var(--leafNumberColor,#D97706); }
+.val.boolean { color: var(--leafBooleanColor,#2563EB); }
 </style>
 
 {#if items.length}
@@ -68,11 +69,10 @@ ul {
       <span class="key">"{i}":</span>
       {/if}
       {#if getType(json[i]) === 'object'}
-      <svelte:self json={json[i]} {depth} _lvl={_lvl + 1} />
+      <svelte:self json={json[i]} {depth} _lvl={_lvl + 1} />{#if idx < items.length - 1}<span class="comma">,</span>{/if}
       {:else}
-      <span class="val {getType(json[i])}">{format(json[i])}</span>
+      <span class="val {getType(json[i])}">{format(json[i])}{#if idx < items.length - 1}<span class="comma">,</span>{/if}</span>
       {/if}
-      <span>{idx < items.length - 1 ? ',' : ''}</span>
     </li>
     {/each}
   </ul>
