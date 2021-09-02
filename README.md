@@ -51,12 +51,13 @@ const app = new JsonView({
 
 ```css
 ul {
-  padding-left: var(--nodePaddingLeft,1rem);
-  border-left: var(--nodeBorderLeft,1px dotted #9CA3AF);
-  color: var(--nodeColor,#374151)
+  padding-left: var(--nodePaddingLeft, 1rem);
+  border-left: var(--nodeBorderLeft, 1px dotted #9CA3AF);
+  color: var(--nodeColor, #374151);
 }
-.bracket:hover { background: var(--bracketHoverBackground,#D1D5DB); }
-.val { color: var(--leafDefaultColor,#9CA3AF) }
+.bracket:hover { background: var(--bracketHoverBackground, #D1D5DB); }
+.comma { color: var(--nodeColor, #374151); }
+.val { color: var(--leafDefaultColor, #9CA3AF); }
 .val.string { color: var(--leafStringColor, #059669); }
 .val.number { color: var(--leafNumberColor, #D97706); }
 .val.boolean { color: var(--leafBooleanColor, #2563EB); }
