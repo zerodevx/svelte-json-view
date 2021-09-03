@@ -2,6 +2,7 @@
 export let json
 export let depth = Infinity
 export let _lvl = 0
+export let _last = true
 
 const collapsedSymbol = '...'
 const getType = i => {
@@ -69,14 +70,14 @@ ul {
       <span class="key">"{i}":</span>
       {/if}
       {#if getType(json[i]) === 'object'}
-      <svelte:self json={json[i]} {depth} _lvl={_lvl + 1} />{#if idx < items.length - 1}<span class="comma">,</span>{/if}
+      <svelte:self json={json[i]} {depth} _lvl={_lvl + 1} _last={idx === items.length - 1} />
       {:else}
       <span class="val {getType(json[i])}">{format(json[i])}{#if idx < items.length - 1}<span class="comma">,</span>{/if}</span>
       {/if}
     </li>
     {/each}
   </ul>
-  <span class="bracket" on:click={clicked} tabindex="0">{closeBracket}</span>
+  <span class="bracket" on:click={clicked} tabindex="0">{closeBracket}</span>{#if !_last}<span class="comma">,</span>{/if}
 </span>
-<span class="bracket" class:hidden={!collapsed} on:click={clicked} tabindex="0">{openBracket}{collapsedSymbol}{closeBracket}</span>
+<span class="bracket" class:hidden={!collapsed} on:click={clicked} tabindex="0">{openBracket}{collapsedSymbol}{closeBracket}</span>{#if !_last && collapsed}<span class="comma">,</span>{/if}
 {/if}
