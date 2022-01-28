@@ -2,15 +2,6 @@ import svelte from 'rollup-plugin-svelte'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
-import { terser } from 'rollup-plugin-terser'
-import pkg from './package.json'
-
-const production = !process.env.ROLLUP_WATCH
-
-const name = pkg.name
-  .replace(/^(@\S+\/)?(svelte-)?(\S+)/, '$3')
-  .replace(/^\w/, (m) => m.toUpperCase())
-  .replace(/-\w/g, (m) => m[1].toUpperCase())
 
 function serve() {
   let server
@@ -32,15 +23,16 @@ function serve() {
 
 export default {
   input: 'docs/main.js',
-  output: [
-    { sourcemap: true, format: 'iife', name: 'app', file: 'docs/build/bundle.js' },
-    production && { file: pkg.module, format: 'es' },
-    production && { file: pkg.main, format: 'umd', name }
-  ],
+  output: {
+    sourcemap: true,
+    format: 'iife',
+    name: 'app',
+    file: 'docs/build/bundle.js'
+  },
   plugins: [
     svelte({
       compilerOptions: {
-        dev: !production,
+        dev: true,
         css: true
       },
       emitCss: false
@@ -50,9 +42,8 @@ export default {
       dedupe: ['svelte']
     }),
     commonjs(),
-    !production && serve(),
-    !production && livereload('docs'),
-    production && terser()
+    serve(),
+    livereload('docs')
   ],
   watch: {
     clearScreen: false
