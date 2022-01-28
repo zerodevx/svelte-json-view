@@ -41,6 +41,34 @@ const clicked = () => {
 }
 </script>
 
+{#if items.length}
+  <span class:hidden={collapsed}>
+    <span class="bracket" on:click={clicked} tabindex="0">{openBracket}</span>
+    <ul>
+      {#each items as i, idx}
+        <li>
+          {#if !isArray}
+            <span class="key">"{i}":</span>
+          {/if}
+          {#if getType(json[i]) === 'object'}
+            <svelte:self json={json[i]} {depth} _lvl={_lvl + 1} _last={idx === items.length - 1} />
+          {:else}
+            <span class="val {getType(json[i])}"
+              >{format(json[i])}{#if idx < items.length - 1}<span class="comma">,</span>{/if}</span
+            >
+          {/if}
+        </li>
+      {/each}
+    </ul>
+    <span class="bracket" on:click={clicked} tabindex="0">{closeBracket}</span>{#if !_last}<span
+        class="comma">,</span
+      >{/if}
+  </span>
+  <span class="bracket" class:hidden={!collapsed} on:click={clicked} tabindex="0"
+    >{openBracket}{collapsedSymbol}{closeBracket}</span
+  >{#if !_last && collapsed}<span class="comma">,</span>{/if}
+{/if}
+
 <style>
 ul {
   list-style: none;
@@ -75,31 +103,3 @@ ul {
   color: var(--leafBooleanColor, #2563eb);
 }
 </style>
-
-{#if items.length}
-  <span class:hidden={collapsed}>
-    <span class="bracket" on:click={clicked} tabindex="0">{openBracket}</span>
-    <ul>
-      {#each items as i, idx}
-        <li>
-          {#if !isArray}
-            <span class="key">"{i}":</span>
-          {/if}
-          {#if getType(json[i]) === 'object'}
-            <svelte:self json={json[i]} {depth} _lvl={_lvl + 1} _last={idx === items.length - 1} />
-          {:else}
-            <span class="val {getType(json[i])}"
-              >{format(json[i])}{#if idx < items.length - 1}<span class="comma">,</span>{/if}</span
-            >
-          {/if}
-        </li>
-      {/each}
-    </ul>
-    <span class="bracket" on:click={clicked} tabindex="0">{closeBracket}</span>{#if !_last}<span
-        class="comma">,</span
-      >{/if}
-  </span>
-  <span class="bracket" class:hidden={!collapsed} on:click={clicked} tabindex="0"
-    >{openBracket}{collapsedSymbol}{closeBracket}</span
-  >{#if !_last && collapsed}<span class="comma">,</span>{/if}
-{/if}

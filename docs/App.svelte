@@ -178,14 +178,6 @@ const test4 = { desc: 'Test special types', foo: function () {}, bar: Symbol('ba
 let depth = 0
 </script>
 
-<style>
-.wrap {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
-  font-size: 0.875rem;
-}
-</style>
-
 <button
   on:click={() => {
     depth = Infinity
@@ -212,3 +204,11 @@ let depth = 0
 <div class="wrap">
   <JsonView json={test4} />
 </div>
+
+<style>
+.wrap {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  font-size: 0.875rem;
+}
+</style>
