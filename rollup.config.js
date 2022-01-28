@@ -9,16 +9,16 @@ const production = !process.env.ROLLUP_WATCH
 
 const name = pkg.name
   .replace(/^(@\S+\/)?(svelte-)?(\S+)/, '$3')
-  .replace(/^\w/, m => m.toUpperCase())
-  .replace(/-\w/g, m => m[1].toUpperCase())
+  .replace(/^\w/, (m) => m.toUpperCase())
+  .replace(/-\w/g, (m) => m[1].toUpperCase())
 
-function serve () {
+function serve() {
   let server
-  function toExit () {
+  function toExit() {
     if (server) server.kill(0)
   }
   return {
-    writeBundle () {
+    writeBundle() {
       if (server) return
       server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
         stdio: ['ignore', 'inherit', 'inherit'],
