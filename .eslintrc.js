@@ -1,29 +1,17 @@
 module.exports = {
+  root: true,
+  extends: ['eslint:recommended', 'prettier'],
+  overrides: [
+    { files: ['*.svelte'], plugins: ['svelte3'], processor: 'svelte3/svelte3' },
+    { files: ['*.html'], plugins: ['html'] }
+  ],
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaVersion: 2019
   },
   env: {
-    es6: true,
     browser: true,
-    node: true
-  },
-  extends: [
-    'standard'
-  ],
-  plugins: [
-    'svelte3'
-  ],
-  overrides: [
-    {
-      files: ['**/*.svelte'],
-      processor: 'svelte3/svelte3',
-      rules: {
-        'import/first': 0,
-        'import/no-duplicates': 0,
-        'import/no-mutable-exports': 0,
-        'no-multiple-empty-lines': 0
-      }
-    }
-  ]
+    node: true,
+    es2017: true
+  }
 }
