@@ -11,11 +11,13 @@ Here's a
 
 Install the package:
 
-`$ npm i -D @zerodevx/svelte-json-view`
+```
+$ npm i -D @zerodevx/svelte-json-view
+```
 
 ### Svelte
 
-If you're this in a Svelte app:
+If you're using this in a Svelte app:
 
 ```html
 <script>
@@ -35,18 +37,43 @@ For other applications with a bundler:
 import { JsonView } from '@zerodevx/svelte-json-view'
 
 const app = new JsonView({
-  target: document.body, // node to render into
+  target: document.body,  // node to render into
   props: {
-    json: { foo: 'bar' } // data to prettify
+    json: { foo: 'bar' }, // object to prettify
+    ...                   // any other props
   }
 })
 ```
 
+Or load via CDN:
+
+```html
+<head>
+  ...
+  <!-- Load `JsonView` from CDN -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@zerodevx/svelte-json-view@0"></script>
+  <!-- Register the view -->
+  <script type="module">
+    window.view = new JsonView({
+      target: document.querySelector('#target'), // node to render into
+      props: {
+        json: { foo: 'bar' }, // object to prettify
+        ...                   // any other props
+      }
+    })
+  </script>
+</head>
+<body>
+  <div id="target"></div>
+</body>
+```
+
 ## Props
 
-`json`: Un-stringified object to pass in
-
-`depth`: Initial expansion depth (defaults to `Infinity`)
+| Name  | Type   | Default  | Description                      |
+| ----- | ------ | -------- | -------------------------------- |
+| json  | Object | None     | Un-stringified object to display |
+| depth | Number | Infinity | Initial expansion depth          |
 
 ## CSS vars
 
