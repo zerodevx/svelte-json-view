@@ -5,6 +5,6 @@
   "trailingComma": "none",
   "printWidth": 100,
   "proseWrap": "always",
-  "svelteSortOrder": "options-scripts-styles-markup",
+  "svelteSortOrder": "options-scripts-markup-styles",
   "svelteIndentScriptAndStyle": false
 }
