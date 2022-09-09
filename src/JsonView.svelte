@@ -41,7 +41,11 @@ const clicked = () => {
 }
 </script>
 
-{#if items.length}
+{#if !items.length}
+  <span class="bracket" tabindex="0">{openBracket}{closeBracket}</span>{#if !_last}<span
+      class="comma">,</span
+    >{/if}
+{:else}
   <span class:hidden={collapsed}>
     <span class="bracket" on:click={clicked} tabindex="0">{openBracket}</span>
     <ul>

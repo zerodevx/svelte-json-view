@@ -25,12 +25,17 @@ const test1 = [
     longitude: -0.093647,
     tags: ['quis', 'officia', 'ullamco', 'occaecat', 'sint', 'pariatur', 'fugiat'],
     friends: [
-      { id: 0, name: 'Thelma Robles' },
-      { id: 1, name: 'Genevieve Russo' },
-      { id: 2, name: 'Mcclure Tate' }
+      { id: 0, name: 'Thelma Robles', address: [] },
+      { id: 1, name: 'Genevieve Russo', address: {} },
+      { id: 2, name: 'Mcclure Tate', address: null }
     ],
     greeting: 'Hello, Hampton Hardin! You have 2 unread messages.',
-    favoriteFruit: 'banana'
+    favoriteFruit: 'banana',
+    contacts: [],
+    report: {},
+    email2: null,
+    email3: '',
+    email4: undefined
   },
   {
     _id: '60702426f2aec6774924fd63',
