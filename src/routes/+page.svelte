@@ -1,5 +1,5 @@
 <script>
-import JsonView from '../src/JsonView.svelte'
+import JsonView from '$lib'
 
 /* eslint-disable */
 const test1 = [
@@ -182,6 +182,10 @@ const test4 = { desc: 'Test special types', foo: function () {}, bar: Symbol('ba
 
 let depth = 0
 </script>
+
+<svelte:head>
+  <title>svelte-json-view</title>
+</svelte:head>
 
 <button
   on:click={() => {
