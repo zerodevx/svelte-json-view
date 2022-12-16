@@ -14,7 +14,7 @@
     "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
-    "@playwright/test": "^1.28.1",
+    "@playwright/test": "1.28.1",
     "@sveltejs/adapter-auto": "1.0.0",
     "@sveltejs/kit": "1.0.0",
     "@sveltejs/package": "1.0.0",
@@ -35,7 +35,7 @@
   "main": "./dist/index.umd.js",
   "exports": {
     "./dist": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.es.js",
       "require": "./dist/index.umd.js"
     }
   },
