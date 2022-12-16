@@ -1,38 +1,46 @@
 {
   "name": "@zerodevx/svelte-json-view",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "View JSON data prettily",
   "author": "Jason Lee <jason@zerodevx.com>",
-  "svelte": "src/index.js",
-  "module": "dist/index.mjs",
-  "main": "dist/index.js",
   "scripts": {
-    "start": "sirv docs --no-clear",
-    "dev": "rollup -c -w",
-    "format": "prettier --write .",
-    "lint": "eslint .",
-    "build": "rollup -c rollup.dist.config.js",
-    "prepublishOnly": "npm run build"
+    "dev": "vite dev",
+    "build": "svelte-kit sync && svelte-package && vite build -c vite.dist.config.js",
+    "prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
+    "test": "playwright test",
+    "lint": "prettier --plugin-search-dir . --check . && eslint .",
+    "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.2",
-    "@rollup/plugin-node-resolve": "^14.0.1",
-    "eslint": "^8.23.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-html": "^7.1.0",
-    "eslint-plugin-svelte3": "^4.0.0",
-    "prettier": "^2.7.1",
-    "prettier-plugin-svelte": "^2.7.0",
-    "rollup": "^2.79.0",
-    "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-svelte": "^7.1.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "sirv-cli": "^2.0.2",
-    "svelte": "^3.50.1"
+    "@playwright/test": "^1.28.1",
+    "@sveltejs/adapter-auto": "1.0.0",
+    "@sveltejs/kit": "1.0.0",
+    "@sveltejs/package": "1.0.0",
+    "@sveltejs/vite-plugin-svelte": "2.0.2",
+    "eslint": "8.29.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-svelte3": "4.0.0",
+    "prettier": "2.8.1",
+    "prettier-plugin-svelte": "2.9.0",
+    "svelte": "3.55.0",
+    "svelte-check": "2.10.2",
+    "terser": "5.16.1",
+    "tslib": "2.4.1",
+    "typescript": "4.9.4",
+    "vite": "4.0.1"
+  },
+  "type": "module",
+  "main": "./dist/index.umd.js",
+  "exports": {
+    "./dist": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.js"
+    }
   },
   "files": [
-    "src",
-    "dist"
+    "**/*"
   ],
   "license": "ISC",
   "repository": {

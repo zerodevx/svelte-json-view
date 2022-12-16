@@ -12,7 +12,7 @@ Here's a
 Install the package:
 
 ```
-$ npm i -D @zerodevx/svelte-json-view
+$ npm i @zerodevx/svelte-json-view
 ```
 
 ### Svelte
@@ -37,11 +37,12 @@ For other applications with a bundler:
 import { JsonView } from '@zerodevx/svelte-json-view'
 
 const app = new JsonView({
-  target: document.body,  // node to render into
-  props: {
-    json: { foo: 'bar' }, // object to prettify
-    ...                   // any other props
-  }
+  target: document.body   // node to render into
+})
+
+app.$set({
+  json: { foo: 'bar' },   // object to prettify
+  ...                     // any other props
 })
 ```
 
@@ -51,10 +52,10 @@ Or load via CDN:
 <head>
   ...
   <!-- Load `JsonView` from CDN -->
-  <script defer src="https://cdn.jsdelivr.net/npm/@zerodevx/svelte-json-view@0"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@zerodevx/svelte-json-view@1"></script>
   <!-- Register the view -->
   <script type="module">
-    window.view = new JsonView({
+    const app = new JsonView({
       target: document.querySelector('#target'), // node to render into
       props: {
         json: { foo: 'bar' }, // object to prettify
@@ -68,40 +69,68 @@ Or load via CDN:
 </body>
 ```
 
+## Theming
+
+In general, use CSS variables.
+
+| Name                         | Default      | Description                                   |
+| ---------------------------- | ------------ | --------------------------------------------- |
+| --jsonPaddingLeft            | 1rem         | Amount of left padding to apply at each depth |
+| --jsonBorderLeft             | 1px dotted   | Style applied to left border for each depth   |
+| --jsonBracketColor           | currentcolor | Color for brackets ('[', '{', '}', ']')       |
+| --jsonBracketHoverBackground | #e5e7eb      | Hover background for brackets                 |
+| --jsonSeparatorColor         | currentcolor | Color for separators (colons and commas)      |
+| --jsonKeyColor               | currentcolor | Color for keys                                |
+| --jsonValColor               | #9ca3af      | Default color for values                      |
+| --jsonValStringColor         | #059669      | Color for `string` values                     |
+| --jsonValNumberColor         | #d97706      | Color for `number` values                     |
+| --jsonValBooleanColor        | #2563eb      | Color for `boolean` values                    |
+
+It's recommended to wrap the component to apply your own font family (a monospaced font is
+recommended) and also to apply custom CSS var overrides.
+
+<!-- prettier-ignore -->
+```html
+<div class="wrap">
+  <JsonView {json} />
+</div>
+
+<style>
+  .wrap {
+    font-family: monospace;
+    font-size: 14px;
+    --jsonBorderLeft: 2px dashed red;
+    --jsonValColor: blue;
+    ...
+  }
+</style>
+```
+
 ## Props
 
-| Name  | Type   | Default  | Description                      |
-| ----- | ------ | -------- | -------------------------------- |
-| json  | Object | None     | Un-stringified object to display |
-| depth | Number | Infinity | Initial expansion depth          |
+| Name  | Type   | Default   | Description                      |
+| ----- | ------ | --------- | -------------------------------- |
+| json  | Object | undefined | Un-stringified object to display |
+| depth | Number | Infinity  | Initial expansion depth          |
 
-## CSS vars
+## Development
 
-```css
-ul {
-  padding-left: var(--nodePaddingLeft, 1rem);
-  border-left: var(--nodeBorderLeft, 1px dotted #9ca3af);
-  color: var(--nodeColor, #374151);
-}
-.bracket:hover {
-  background: var(--bracketHoverBackground, #d1d5db);
-}
-.comma {
-  color: var(--nodeColor, #374151);
-}
-.val {
-  color: var(--leafDefaultColor, #9ca3af);
-}
-.val.string {
-  color: var(--leafStringColor, #059669);
-}
-.val.number {
-  color: var(--leafNumberColor, #d97706);
-}
-.val.boolean {
-  color: var(--leafBooleanColor, #2563eb);
-}
+Library is packaged via [SvelteKit](https://kit.svelte.dev/docs/packaging). Standard Github
+[contribution workflow](https://docs.github.com/en/get-started/quickstart/contributing-to-projects)
+applies.
+
+### Tests
+
+End-to-end testing via [Playwright](https://github.com/microsoft/playwright). To run tests
+headlessly:
+
 ```
+$ npm run test
+```
+
+## Changelog
+
+Please refer to the [releases](https://github.com/zerodevx/svelte-json-view/releases) page.
 
 ## License
 
