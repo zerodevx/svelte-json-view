@@ -1,109 +1,120 @@
 <script>
+/** @type {*} */
 export let json
 export let depth = Infinity
-export let _lvl = 0
+export let _cur = 0
 export let _last = true
 
-const collapsedSymbol = '...'
-const getType = (i) => {
+/** @type {*[]} */
+let items
+let isArray = false
+let brackets = ['', '']
+let collapsed = false
+
+/**
+ * @param {*} i
+ * @returns {string}
+ */
+function getType(i) {
   if (i === null) return 'null'
   return typeof i
 }
 
-let items
-let isArray
-let openBracket
-let closeBracket
+/**
+ * @param {*} i
+ * @returns {string}
+ */
+function format(i) {
+  const t = getType(i)
+  if (t === 'string') return `"${i}"`
+  if (t === 'function') return 'f () {...}'
+  if (t === 'symbol') return i.toString()
+  return i
+}
+
+function clicked() {
+  collapsed = !collapsed
+}
+
+/**
+ * @param {Event} e
+ */
+function pressed(e) {
+  if (e instanceof KeyboardEvent && ['Enter', ' '].includes(e.key)) clicked()
+}
+
 $: {
   items = getType(json) === 'object' ? Object.keys(json) : []
   isArray = Array.isArray(json)
-  openBracket = isArray ? '[' : '{'
-  closeBracket = isArray ? ']' : '}'
+  brackets = isArray ? ['[', ']'] : ['{', '}']
 }
 
-let collapsed
-$: collapsed = depth < _lvl
-
-const format = (i) => {
-  switch (getType(i)) {
-    case 'string':
-      return `"${i}"`
-    case 'function':
-      return 'f () {...}'
-    case 'symbol':
-      return i.toString()
-    default:
-      return i
-  }
-}
-const clicked = () => {
-  collapsed = !collapsed
-}
+$: collapsed = depth < _cur
 </script>
 
 {#if !items.length}
-  <span class="bracket" tabindex="0">{openBracket}{closeBracket}</span>{#if !_last}<span
-      class="comma">,</span
+  <span class="_jsonBkt empty">{brackets[0]}{brackets[1]}</span>{#if !_last}<span class="_jsonSep"
+      >,</span
     >{/if}
+{:else if collapsed}
+  <span class="_jsonBkt" role="button" tabindex="0" on:click={clicked} on:keydown={pressed}
+    >{brackets[0]}...{brackets[1]}</span
+  >{#if !_last && collapsed}<span class="_jsonSep">,</span>{/if}
 {:else}
-  <span class:hidden={collapsed}>
-    <span class="bracket" on:click={clicked} tabindex="0">{openBracket}</span>
-    <ul>
-      {#each items as i, idx}
-        <li>
-          {#if !isArray}
-            <span class="key">"{i}":</span>
-          {/if}
-          {#if getType(json[i]) === 'object'}
-            <svelte:self json={json[i]} {depth} _lvl={_lvl + 1} _last={idx === items.length - 1} />
-          {:else}
-            <span class="val {getType(json[i])}"
-              >{format(json[i])}{#if idx < items.length - 1}<span class="comma">,</span>{/if}</span
-            >
-          {/if}
-        </li>
-      {/each}
-    </ul>
-    <span class="bracket" on:click={clicked} tabindex="0">{closeBracket}</span>{#if !_last}<span
-        class="comma">,</span
-      >{/if}
-  </span>
-  <span class="bracket" class:hidden={!collapsed} on:click={clicked} tabindex="0"
-    >{openBracket}{collapsedSymbol}{closeBracket}</span
-  >{#if !_last && collapsed}<span class="comma">,</span>{/if}
+  <span class="_jsonBkt" role="button" tabindex="0" on:click={clicked} on:keydown={pressed}
+    >{brackets[0]}</span
+  >
+  <ul class="_jsonList">
+    {#each items as i, idx}
+      <li>
+        {#if !isArray}
+          <span class="_jsonKey">"{i}"</span><span class="_jsonSep">:</span>
+        {/if}
+        {#if getType(json[i]) === 'object'}
+          <svelte:self json={json[i]} {depth} _cur={_cur + 1} _last={idx === items.length - 1} />
+        {:else}
+          <span class="_jsonVal {getType(json[i])}">{format(json[i])}</span
+          >{#if idx < items.length - 1}<span class="_jsonSep">,</span>{/if}
+        {/if}
+      </li>
+    {/each}
+  </ul>
+  <span class="_jsonBkt" role="button" tabindex="0" on:click={clicked} on:keydown={pressed}
+    >{brackets[1]}</span
+  >{#if !_last}<span class="_jsonSep">,</span>{/if}
 {/if}
 
 <style>
-ul {
+._jsonList {
   list-style: none;
   margin: 0;
   padding: 0;
-  padding-left: var(--nodePaddingLeft, 1rem);
-  border-left: var(--nodeBorderLeft, 1px dotted #9ca3af);
-  color: var(--nodeColor, #374151);
+  padding-left: var(--jsonPaddingLeft, 1rem);
+  border-left: var(--jsonBorderLeft, 1px dotted);
 }
-.hidden {
-  display: none;
+._jsonBkt {
+  color: var(--jsonBracketColor, currentcolor);
 }
-.bracket {
+._jsonBkt:not(.empty):hover {
   cursor: pointer;
+  background: var(--jsonBracketHoverBackground, #e5e7eb);
 }
-.bracket:hover {
-  background: var(--bracketHoverBackground, #d1d5db);
+._jsonSep {
+  color: var(--jsonSeparatorColor, currentcolor);
 }
-.comma {
-  color: var(--nodeColor, #374151);
+._jsonKey {
+  color: var(--jsonKeyColor, currentcolor);
 }
-.val {
-  color: var(--leafDefaultColor, #9ca3af);
+._jsonVal {
+  color: var(--jsonValColor, #9ca3af);
 }
-.val.string {
-  color: var(--leafStringColor, #059669);
+._jsonVal.string {
+  color: var(--jsonValStringColor, #059669);
 }
-.val.number {
-  color: var(--leafNumberColor, #d97706);
+._jsonVal.number {
+  color: var(--jsonValNumberColor, #d97706);
 }
-.val.boolean {
-  color: var(--leafBooleanColor, #2563eb);
+._jsonVal.boolean {
+  color: var(--jsonValBooleanColor, #2563eb);
 }
 </style>
