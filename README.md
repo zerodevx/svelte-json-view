@@ -34,7 +34,8 @@ If you're using this in a Svelte app:
 For other applications with a bundler:
 
 ```js
-import { JsonView } from '@zerodevx/svelte-json-view'
+// Import the compiled code from `/dist`
+import { JsonView } from '@zerodevx/svelte-json-view/dist'
 
 const app = new JsonView({
   target: document.body   // node to render into
@@ -77,9 +78,9 @@ In general, use CSS variables.
 | ---------------------------- | ------------ | --------------------------------------------- |
 | --jsonPaddingLeft            | 1rem         | Amount of left padding to apply at each depth |
 | --jsonBorderLeft             | 1px dotted   | Style applied to left border for each depth   |
-| --jsonBracketColor           | currentcolor | Color for brackets ('[', '{', '}', ']')       |
+| --jsonBracketColor           | currentcolor | Color for brackets `[`, `{`, `}` and `]`      |
 | --jsonBracketHoverBackground | #e5e7eb      | Hover background for brackets                 |
-| --jsonSeparatorColor         | currentcolor | Color for separators (colons and commas)      |
+| --jsonSeparatorColor         | currentcolor | Color for separators `:` and `,`              |
 | --jsonKeyColor               | currentcolor | Color for keys                                |
 | --jsonValColor               | #9ca3af      | Default color for values                      |
 | --jsonValStringColor         | #059669      | Color for `string` values                     |
