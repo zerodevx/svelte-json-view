@@ -9,7 +9,7 @@ test('depth=0', async ({ page }) => {
 test('depth=infinity', async ({ page }) => {
   await page.goto('/')
   await page.locator('#btn_i').click()
-  await expect(page.locator('#basic').getByText('{...}', { exact: true })).toHaveCount(0)
+  await expect(page.getByText('nest0').locator('..').getByText('...')).toHaveCount(0)
 })
 
 test('default depth=1', async ({ page }) => {
