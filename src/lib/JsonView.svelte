@@ -1,6 +1,7 @@
 <script>
-/** @type {*} */
+/** @type {*} - object or array to display */
 export let json
+/** @type {number} - initial expansion depth */
 export let depth = Infinity
 export let _cur = 0
 export let _last = true
