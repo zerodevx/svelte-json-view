@@ -107,6 +107,13 @@ let depth = 0
   </div>
 </section>
 
+<section>
+  <h1>Test red square brackets</h1>
+  <div class="wrap" id="red_square">
+    <JsonView json={fixture[0]} --jsonBracketColor="blue" />
+  </div>
+</section>
+
 <style>
 section {
   margin: 0 0 4rem 0;
@@ -117,5 +124,8 @@ section {
     'Courier New', monospace;
   font-size: 0.875rem;
   color: #374151;
+}
+#red_square :global(.isArray) {
+  color: red;
 }
 </style>

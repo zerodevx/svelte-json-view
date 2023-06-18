@@ -26,3 +26,12 @@ test('special types', async ({ page }) => {
     expect(list[a]).toStrictEqual(asserts[a])
   }
 })
+
+test('red square brackets', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('#red_square ._jsonBkt').first()).toHaveCSS('color', 'rgb(0, 0, 255)')
+  await expect(page.locator('#red_square ._jsonBkt.isArray').first()).toHaveCSS(
+    'color',
+    'rgb(255, 0, 0)'
+  )
+})
