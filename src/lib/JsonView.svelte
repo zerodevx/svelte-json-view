@@ -54,16 +54,26 @@ $: collapsed = depth < _cur
 </script>
 
 {#if !items.length}
-  <span class="_jsonBkt empty">{brackets[0]}{brackets[1]}</span>{#if !_last}<span class="_jsonSep"
-      >,</span
+  <span class="_jsonBkt empty" class:isArray>{brackets[0]}{brackets[1]}</span>{#if !_last}<span
+      class="_jsonSep">,</span
     >{/if}
 {:else if collapsed}
-  <span class="_jsonBkt" role="button" tabindex="0" on:click={clicked} on:keydown={pressed}
-    >{brackets[0]}...{brackets[1]}</span
+  <span
+    class="_jsonBkt"
+    class:isArray
+    role="button"
+    tabindex="0"
+    on:click={clicked}
+    on:keydown={pressed}>{brackets[0]}...{brackets[1]}</span
   >{#if !_last && collapsed}<span class="_jsonSep">,</span>{/if}
 {:else}
-  <span class="_jsonBkt" role="button" tabindex="0" on:click={clicked} on:keydown={pressed}
-    >{brackets[0]}</span
+  <span
+    class="_jsonBkt"
+    class:isArray
+    role="button"
+    tabindex="0"
+    on:click={clicked}
+    on:keydown={pressed}>{brackets[0]}</span
   >
   <ul class="_jsonList">
     {#each items as i, idx}
@@ -80,42 +90,47 @@ $: collapsed = depth < _cur
       </li>
     {/each}
   </ul>
-  <span class="_jsonBkt" role="button" tabindex="0" on:click={clicked} on:keydown={pressed}
-    >{brackets[1]}</span
+  <span
+    class="_jsonBkt"
+    class:isArray
+    role="button"
+    tabindex="0"
+    on:click={clicked}
+    on:keydown={pressed}>{brackets[1]}</span
   >{#if !_last}<span class="_jsonSep">,</span>{/if}
 {/if}
 
 <style>
-._jsonList {
+:where(._jsonList) {
   list-style: none;
   margin: 0;
   padding: 0;
   padding-left: var(--jsonPaddingLeft, 1rem);
   border-left: var(--jsonBorderLeft, 1px dotted);
 }
-._jsonBkt {
+:where(._jsonBkt) {
   color: var(--jsonBracketColor, currentcolor);
 }
-._jsonBkt:not(.empty):hover {
+:where(._jsonBkt):not(.empty):hover {
   cursor: pointer;
   background: var(--jsonBracketHoverBackground, #e5e7eb);
 }
-._jsonSep {
+:where(._jsonSep) {
   color: var(--jsonSeparatorColor, currentcolor);
 }
-._jsonKey {
+:where(._jsonKey) {
   color: var(--jsonKeyColor, currentcolor);
 }
-._jsonVal {
+:where(._jsonVal) {
   color: var(--jsonValColor, #9ca3af);
 }
-._jsonVal.string {
+:where(._jsonVal).string {
   color: var(--jsonValStringColor, #059669);
 }
-._jsonVal.number {
+:where(._jsonVal).number {
   color: var(--jsonValNumberColor, #d97706);
 }
-._jsonVal.boolean {
+:where(._jsonVal).boolean {
   color: var(--jsonValBooleanColor, #2563eb);
 }
 </style>
