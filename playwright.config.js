@@ -1,8 +1,5 @@
-import { defineConfig } from '@playwright/test'
-
-export default defineConfig({
-  testDir: 'tests',
-  testMatch: '**/*.js',
+/** @type {import('@playwright/test').PlaywrightTestConfig} */
+const config = {
   use: {
     baseURL: 'http://localhost:5173'
   },
@@ -10,5 +7,9 @@ export default defineConfig({
     command: 'npm run dev',
     url: 'http://localhost:5173',
     reuseExistingServer: true
-  }
-})
+  },
+  testDir: 'tests',
+  testMatch: /(.+\.)?(test|spec)\.[jt]s/
+}
+
+export default config
