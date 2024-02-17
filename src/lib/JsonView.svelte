@@ -27,7 +27,7 @@ function getType(i) {
  */
 function format(i) {
   const t = getType(i)
-  if (t === 'string') return `"${i}"`
+  if (t === 'string') return `${JSON.stringify(i)}`
   if (t === 'function') return 'f () {...}'
   if (t === 'symbol') return i.toString()
   return i
@@ -79,7 +79,7 @@ $: collapsed = depth < _cur
     {#each items as i, idx}
       <li>
         {#if !isArray}
-          <span class="_jsonKey">"{i}"</span><span class="_jsonSep">:</span>
+          <span class="_jsonKey">{JSON.stringify(i)}</span><span class="_jsonSep">:</span>
         {/if}
         {#if getType(json[i]) === 'object'}
           <svelte:self json={json[i]} {depth} _cur={_cur + 1} _last={idx === items.length - 1} />
