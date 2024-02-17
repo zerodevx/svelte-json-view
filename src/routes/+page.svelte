@@ -62,7 +62,8 @@ const fixture = [
     undefined: undefined,
     empty_string: '',
     empty_obj: {},
-    empty_arr: []
+    empty_arr: [],
+    escaped: `"`
   }
 ]
 const fixture2 = 'test invalid object'

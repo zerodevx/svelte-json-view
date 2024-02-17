@@ -21,7 +21,15 @@ test('default depth=1', async ({ page }) => {
 test('special types', async ({ page }) => {
   await page.goto('/')
   const list = await page.locator('#special_types li ._jsonVal').allTextContents()
-  const asserts = ['"Test special types"', 'f () {...}', 'Symbol(bar)', 'null', 'undefined', '""']
+  const asserts = [
+    '"Test special types"',
+    'f () {...}',
+    'Symbol(bar)',
+    'null',
+    'undefined',
+    '""',
+    '"\\""'
+  ]
   for (let a = 0; a < list.length; a++) {
     expect(list[a]).toStrictEqual(asserts[a])
   }
