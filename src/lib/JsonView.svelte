@@ -6,8 +6,7 @@ export let depth = Infinity
 export let _cur = 0
 export let _last = true
 
-/** @type {*[]} */
-let items
+let items = []
 let isArray = false
 let brackets = ['', '']
 let collapsed = false
@@ -25,12 +24,23 @@ function getType(i) {
  * @param {*} i
  * @returns {string}
  */
+function stringify(i) {
+  return JSON.stringify(i)
+}
+
+/**
+ * @param {*} i
+ * @returns {string}
+ */
 function format(i) {
-  const t = getType(i)
-  if (t === 'string') return `${JSON.stringify(i)}`
-  if (t === 'function') return 'f () {...}'
-  if (t === 'symbol') return i.toString()
-  return i
+  switch (getType(i)) {
+    case 'function':
+      return 'f () {...}'
+    case 'symbol':
+      return i.toString()
+    default:
+      return stringify(i)
+  }
 }
 
 function clicked() {
@@ -79,7 +89,7 @@ $: collapsed = depth < _cur
     {#each items as i, idx}
       <li>
         {#if !isArray}
-          <span class="_jsonKey">{JSON.stringify(i)}</span><span class="_jsonSep">:</span>
+          <span class="_jsonKey">{stringify(i)}</span><span class="_jsonSep">:</span>
         {/if}
         {#if getType(json[i]) === 'object'}
           <svelte:self json={json[i]} {depth} _cur={_cur + 1} _last={idx === items.length - 1} />
