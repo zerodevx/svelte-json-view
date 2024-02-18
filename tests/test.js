@@ -28,7 +28,9 @@ test('special types', async ({ page }) => {
     'null',
     'undefined',
     '""',
-    '"\\""'
+    '"\\""',
+    '200',
+    'true'
   ]
   for (let a = 0; a < list.length; a++) {
     expect(list[a]).toStrictEqual(asserts[a])
