@@ -74,21 +74,21 @@ Or load via CDN:
 
 In general, use CSS variables.
 
-| Name                         | Default      | Description                                   |
-| ---------------------------- | ------------ | --------------------------------------------- |
-| --jsonPaddingLeft            | 1rem         | Amount of left padding to apply at each depth |
-| --jsonBorderLeft             | 1px dotted   | Style applied to left border for each depth   |
-| --jsonBracketColor           | currentcolor | Color for brackets `[`, `{`, `}` and `]`      |
-| --jsonBracketHoverBackground | #e5e7eb      | Hover background for brackets                 |
-| --jsonSeparatorColor         | currentcolor | Color for separators `:` and `,`              |
-| --jsonKeyColor               | currentcolor | Color for keys                                |
-| --jsonValColor               | #9ca3af      | Default color for values                      |
-| --jsonValStringColor         | #059669      | Color for `string` values                     |
-| --jsonValNumberColor         | #d97706      | Color for `number` values                     |
-| --jsonValBooleanColor        | #2563eb      | Color for `boolean` values                    |
+| Name                           | Default        | Description                                   |
+| ------------------------------ | -------------- | --------------------------------------------- |
+| `--jsonPaddingLeft`            | `1rem`         | Amount of left padding to apply at each depth |
+| `--jsonBorderLeft`             | `1px dotted`   | Style applied to left border for each depth   |
+| `--jsonBracketColor`           | `currentcolor` | Colour for brackets `[`, `{`, `}` and `]`     |
+| `--jsonBracketHoverBackground` | `#e5e7eb`      | Hover background for brackets                 |
+| `--jsonSeparatorColor`         | `currentcolor` | Colour for separators `:` and `,`             |
+| `--jsonKeyColor`               | `currentcolor` | Colour for keys                               |
+| `--jsonValColor`               | `#9ca3af`      | Default colour for values                     |
+| `--jsonValStringColor`         | `#059669`      | Colour for `string` values                    |
+| `--jsonValNumberColor`         | `#d97706`      | Colour for `number` values                    |
+| `--jsonValBooleanColor`        | `#2563eb`      | Colour for `boolean` values                   |
 
-It's recommended to wrap the component to apply your own font family (a monospaced font is
-recommended) and also to apply custom CSS var overrides.
+To apply your own font family (a monospaced font is recommended) or apply custom CSS var overrides,
+try wrapping the component and applying these styles to the wrapper like so:
 
 <!-- prettier-ignore -->
 ```html
@@ -109,10 +109,10 @@ recommended) and also to apply custom CSS var overrides.
 
 ## Props
 
-| Name  | Type   | Default   | Description                      |
-| ----- | ------ | --------- | -------------------------------- |
-| json  | Object | undefined | Un-stringified object to display |
-| depth | Number | Infinity  | Initial expansion depth          |
+| Name    | Type     | Default     | Description                      |
+| ------- | -------- | ----------- | -------------------------------- |
+| `json`  | `object` | `undefined` | Un-stringified object to display |
+| `depth` | `number` | `Infinity`  | Initial expansion depth          |
 
 ## Development
 
