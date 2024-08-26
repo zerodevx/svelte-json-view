@@ -1,7 +1,6 @@
 <script>
 import { JsonView } from '$lib'
 
-/* eslint-disable */
 const fixture = [
   {
     desc: 'Test basic',
@@ -69,7 +68,6 @@ const fixture = [
   }
 ]
 const fixture2 = 'test invalid object'
-/* eslint-enable */
 
 let depth = 0
 </script>
