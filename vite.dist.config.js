@@ -13,7 +13,7 @@ export default defineConfig({
     })
   ],
   build: {
-    outDir: './package/dist',
+    outDir: './dist/dist',
     minify: 'terser',
     lib: {
       entry: './src/lib/index.js',
