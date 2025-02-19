@@ -111,36 +111,36 @@ $: collapsed = depth < _cur
 {/if}
 
 <style>
-:where(._jsonList) {
+._jsonList {
   list-style: none;
   margin: 0;
   padding: 0;
   padding-left: var(--jsonPaddingLeft, 1rem);
   border-left: var(--jsonBorderLeft, 1px dotted);
 }
-:where(._jsonBkt) {
+._jsonBkt {
   color: var(--jsonBracketColor, currentcolor);
 }
-:where(._jsonBkt):not(.empty):hover {
+._jsonBkt:not(.empty):hover {
   cursor: pointer;
   background: var(--jsonBracketHoverBackground, #e5e7eb);
 }
-:where(._jsonSep) {
+._jsonSep {
   color: var(--jsonSeparatorColor, currentcolor);
 }
-:where(._jsonKey) {
+._jsonKey {
   color: var(--jsonKeyColor, currentcolor);
 }
-:where(._jsonVal) {
+._jsonVal {
   color: var(--jsonValColor, #9ca3af);
 }
-:where(._jsonVal).string {
+._jsonVal.string {
   color: var(--jsonValStringColor, #059669);
 }
-:where(._jsonVal).number {
+._jsonVal.number {
   color: var(--jsonValNumberColor, #d97706);
 }
-:where(._jsonVal).boolean {
+._jsonVal.boolean {
   color: var(--jsonValBooleanColor, #2563eb);
 }
 </style>
