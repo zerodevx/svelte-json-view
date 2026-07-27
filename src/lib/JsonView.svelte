@@ -1,37 +1,27 @@
 <script>
-/** @type {*} - object or array to display */
-export let json
-/** @type {number} - initial expansion depth */
-export let depth = Infinity
-export let _cur = 0
-export let _last = true
+import JsonView from './JsonView.svelte'
 
-let items = []
-let isArray = false
-let brackets = ['', '']
-let collapsed = false
+/** @type {{ json: *, depth?: number, _cur?: number, _last?: boolean }} */
+let { json, depth = Infinity, _cur = 0, _last = true } = $props()
 
-/**
- * @param {*} i
- * @returns {string}
- */
+let collapsed = $derived(depth < _cur)
+
+let items = $derived(getType(json) === 'object' ? Object.keys(json) : [])
+let isArray = $derived(Array.isArray(json))
+let brackets = $derived(isArray ? ['[', ']'] : ['{', '}'])
+
+/** @param {*} i @returns {string} */
 function getType(i) {
   if (i === null) return 'null'
   return typeof i
 }
 
-/**
- * @param {*} i
- * @returns {string}
- */
+/** @param {*} i @returns {string} */
 function stringify(i) {
   return JSON.stringify(i)
 }
 
-/**
- * @param {*} i
- * @returns {string}
- */
+/** @param {*} i @returns {string} */
 function format(i) {
   switch (getType(i)) {
     case 'function':
@@ -47,20 +37,10 @@ function clicked() {
   collapsed = !collapsed
 }
 
-/**
- * @param {Event} e
- */
+/** @param {Event} e */
 function pressed(e) {
   if (e instanceof KeyboardEvent && ['Enter', ' '].includes(e.key)) clicked()
 }
-
-$: {
-  items = getType(json) === 'object' ? Object.keys(json) : []
-  isArray = Array.isArray(json)
-  brackets = isArray ? ['[', ']'] : ['{', '}']
-}
-
-$: collapsed = depth < _cur
 </script>
 
 {#if !items.length}
@@ -73,8 +53,8 @@ $: collapsed = depth < _cur
     class:isArray
     role="button"
     tabindex="0"
-    on:click={clicked}
-    on:keydown={pressed}>{brackets[0]}...{brackets[1]}</span
+    onclick={clicked}
+    onkeydown={pressed}>{brackets[0]}...{brackets[1]}</span
   >{#if !_last && collapsed}<span class="_jsonSep">,</span>{/if}
 {:else}
   <span
@@ -82,17 +62,17 @@ $: collapsed = depth < _cur
     class:isArray
     role="button"
     tabindex="0"
-    on:click={clicked}
-    on:keydown={pressed}>{brackets[0]}</span
+    onclick={clicked}
+    onkeydown={pressed}>{brackets[0]}</span
   >
   <ul class="_jsonList">
-    {#each items as i, idx}
+    {#each items as i, idx (i)}
       <li>
         {#if !isArray}
           <span class="_jsonKey">{stringify(i)}</span><span class="_jsonSep">:</span>
         {/if}
         {#if getType(json[i]) === 'object'}
-          <svelte:self json={json[i]} {depth} _cur={_cur + 1} _last={idx === items.length - 1} />
+          <JsonView json={json[i]} {depth} _cur={_cur + 1} _last={idx === items.length - 1} />
         {:else}
           <span class="_jsonVal {getType(json[i])}">{format(json[i])}</span
           >{#if idx < items.length - 1}<span class="_jsonSep">,</span>{/if}
@@ -105,8 +85,8 @@ $: collapsed = depth < _cur
     class:isArray
     role="button"
     tabindex="0"
-    on:click={clicked}
-    on:keydown={pressed}>{brackets[1]}</span
+    onclick={clicked}
+    onkeydown={pressed}>{brackets[1]}</span
   >{#if !_last}<span class="_jsonSep">,</span>{/if}
 {/if}
 

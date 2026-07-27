@@ -67,9 +67,9 @@ const fixture = [
     boolean: true
   }
 ]
-const fixture2 = 'test invalid object'
+const invalid = 'test invalid object'
 
-let depth = 0
+let depth = $state(0)
 </script>
 
 <svelte:head>
@@ -78,9 +78,9 @@ let depth = 0
 
 <section>
   <h1>Basic</h1>
-  <button on:click={() => (depth = 0)} id="btn_0">DEPTH 0</button>
-  <button on:click={() => (depth = 1)} id="btn_1">DEPTH 1</button>
-  <button on:click={() => (depth = Infinity)} id="btn_i">DEPTH INFINITY</button>
+  <button onclick={() => (depth = 0)} id="btn_0">DEPTH 0</button>
+  <button onclick={() => (depth = 1)} id="btn_1">DEPTH 1</button>
+  <button onclick={() => (depth = Infinity)} id="btn_i">DEPTH INFINITY</button>
   <br /><br />
   <div class="wrap" id="basic">
     <JsonView json={fixture} {depth} />
@@ -104,7 +104,7 @@ let depth = 0
 <section>
   <h1>Test invalid object</h1>
   <div class="wrap" id="invalid_obj">
-    <JsonView json={fixture2} />
+    <JsonView json={invalid} />
   </div>
 </section>
 
@@ -121,8 +121,9 @@ section {
   border-bottom: 1px solid black;
 }
 .wrap {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
   font-size: 0.875rem;
   color: #374151;
 }
