@@ -28,6 +28,8 @@ function format(i) {
       return 'f () {...}'
     case 'symbol':
       return i.toString()
+    case 'undefined':
+      return 'undefined'
     default:
       return stringify(i)
   }
