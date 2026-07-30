@@ -70,6 +70,7 @@ const fixture = [
 const invalid = 'test invalid object'
 
 let depth = $state(0)
+let reactive = $state({ foo: 'bar' })
 </script>
 
 <svelte:head>
@@ -112,6 +113,15 @@ let depth = $state(0)
   <h1>Test red square brackets</h1>
   <div class="wrap" id="red_square">
     <JsonView json={fixture[0]} --jsonBracketColor="blue" />
+  </div>
+</section>
+
+<section>
+  <h1>Test reactivity</h1>
+  <button onclick={() => (reactive.foo = 'baz')} id="btn_chg">CHANGE</button>
+  <br /><br />
+  <div class="wrap" id="reactive">
+    <JsonView json={reactive} />
   </div>
 </section>
 

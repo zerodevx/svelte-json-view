@@ -45,3 +45,10 @@ test('red square brackets', async ({ page }) => {
     'rgb(255, 0, 0)'
   )
 })
+
+test('reactivity', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('#reactive').getByText('"bar"')).toHaveCount(1)
+  await page.locator('#btn_chg').click()
+  await expect(page.locator('#reactive').getByText('"baz"')).toHaveCount(1)
+})
