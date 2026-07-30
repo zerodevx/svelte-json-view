@@ -1,27 +1,33 @@
 <script>
 import JsonView from './JsonView.svelte'
 
-/** @type {{ json: *, depth?: number, _cur?: number, _last?: boolean }} */
+/**
+ * @typedef {object} JsonViewProps
+ * @prop {any} json - JSON object to display.
+ * @prop {number} [depth=Infinity] - Maximum depth to display.
+ * @prop {number} [_cur=0] - INTERNAL USE ONLY. Track current depth.
+ * @prop {boolean} [_last=true] - INTERNAL USE ONLY. Track if item is last.
+ */
+
+/** @type {JsonViewProps} */
 let { json, depth = Infinity, _cur = 0, _last = true } = $props()
 
 let collapsed = $derived(depth < _cur)
-
 let items = $derived(getType(json) === 'object' ? Object.keys(json) : [])
 let isArray = $derived(Array.isArray(json))
 let brackets = $derived(isArray ? ['[', ']'] : ['{', '}'])
 
-/** @param {*} i @returns {string} */
+/** @param {any} i @returns {string} */
 function getType(i) {
-  if (i === null) return 'null'
-  return typeof i
+  return i === null ? 'null' : typeof i
 }
 
-/** @param {*} i @returns {string} */
+/** @param {any} i @returns {string} */
 function stringify(i) {
   return JSON.stringify(i)
 }
 
-/** @param {*} i @returns {string} */
+/** @param {any} i @returns {string} */
 function format(i) {
   switch (getType(i)) {
     case 'function':
