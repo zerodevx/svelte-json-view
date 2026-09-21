@@ -9,7 +9,7 @@ const fixture = [
     guid: 'c47f144e-9390-4e96-8b9f-7f3d0fb4250a',
     isActive: false,
     balance: '$3,660.45',
-    picture: 'http://placehold.it/32x32',
+    picture: 'https://placeholder.photo/32x32',
     age: 21,
     eyeColor: 'blue',
     name: 'Hampton Hardin',
