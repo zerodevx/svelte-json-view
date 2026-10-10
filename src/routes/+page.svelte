@@ -1,5 +1,5 @@
 <script>
-import { JsonView } from '$lib'
+import { JsonView } from '#lib'
 
 const fixture = [
   {
