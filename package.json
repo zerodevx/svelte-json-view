@@ -1,20 +1,20 @@
 {
   "name": "@zerodevx/svelte-json-view",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "View JSON data prettily",
   "author": "Jason Lee <jason@zerodevx.com>",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run prepack && vite build -c vite-bundled.config.js && npx publint",
+    "build": "vite build && npm run prepack && npx publint",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
-    "prepack": "svelte-kit sync && svelte-package",
+    "prepack": "svelte-kit sync && svelte-package && vite build -c vite-bundled.config.js",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
-    "lint": "prettier --check . && eslint && npm run check",
+    "lint": "prettier --check . && npm run check && eslint",
     "format": "prettier --write .",
     "test:e2e": "playwright install && playwright test",
-    "test": "npm run lint && npm run test:e2e"
+    "test": "npm run test:e2e"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"
@@ -26,22 +26,22 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "@sveltejs/adapter-static": "^4.0.1",
     "@sveltejs/kit": "^3.2.0",
     "@sveltejs/package": "^3.0.2",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
-    "@types/node": "^24.19.2",
-    "eslint": "^10.14.0",
+    "@types/node": "^26.6.6",
+    "eslint": "^10.15.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.24.1",
     "globals": "^17.14.0",
-    "prettier": "^3.9.10",
+    "prettier": "^3.10.1",
     "prettier-plugin-svelte": "^4.1.1",
     "svelte": "^5.57.3",
     "svelte-check": "^4.7.8",
     "typescript": "^6.0.3",
-    "vite": "^8.3.7"
+    "vite": "^8.3.8"
   },
   "allowScripts": {
     "fsevents": true
